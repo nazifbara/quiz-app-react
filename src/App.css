@@ -1,38 +1,120 @@
-.App {
+.Absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Button {
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color:  #f7f7f7;
+}
+
+.Start {
+  width: 70%;
+  padding: 20px;
+  max-width: 500;
+}
+
+.Next {
+  padding: 4px;
+  display: block;
+  margin: 20px auto;
+  width: 90%;
+  background-color: orangered;
+  color: white;
+  max-width: 400px;
+}
+
+.Quiz {
+  padding: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.Question {
+  padding: 25px 5px 10px 5px;
+  background-color: white;
+  border-radius: 4px;
+  margin-bottom: 0 auto 10px auto;
+  position: relative;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Badge {
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  background-color: orangered;
+  padding: 3px 10px;
+  border-radius: 50%;
+  color: #f7f7f7;
+  border: 3px dashed #f7f7f7;
+  transform: translateX(-50%);
+  font-weight: 700;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Answers {
+  text-align: center;
+  width: 90%;
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.Answers input[type="radio"] {
+  visibility: hidden;
+}
+
+.Answers div {
+  width: 100%;
+}
+
+.Choice {
+  background-color: white;
+  width: 100%;
+  display: block;
+  padding: 10px 0;
+}
+
+.Choice {
+  transition: all 0.20s;
+}
+
+.Result {
+  width: 90%;
+  max-width: 900px;
+  font-weight: 400;
+  font-size: 1.5em;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.Result a {
+  color: orangered;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+input:checked + .Choice {
+  border: 3px dashed black;
+}
+
+@media screen and (min-width: 800px) {
+  .Question {
+    margin-top: 10%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .Answers div {
+    width: 48%;
+  }
+
+  .Next {
+    padding: 8px;
+  }
+
+  .Result {
+    font-size: 1.2em;
   }
 }
