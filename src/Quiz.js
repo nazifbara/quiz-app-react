@@ -1,7 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
-import axios from 'axios';
 
-const apiURL = 'https://opentdb.com/api.php?amount=8&type=multiple';
+import client from './client';
 
 function Quiz() {
   const [quiz, dispatchQuiz] = useReducer(quizReducer, INITIAL_STATE);
@@ -27,11 +26,10 @@ function Quiz() {
     dispatchQuiz({ type: 'QUIZ_FETCH_INIT' });
 
     try {
-      const {
-        data: { results },
-      } = await axios.get(apiURL);
+      const results = await client.fetchQuiz();
       dispatchQuiz({ type: 'QUIZ_FETCH_SUCCESS', payload: results });
     } catch (e) {
+      console.error(e);
       dispatchQuiz({ type: 'QUIZ_FETCH_FAILURE' });
     }
   };
