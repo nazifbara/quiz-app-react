@@ -1,0 +1,95 @@
+.question {
+  padding: 1.5625rem 0.3125rem 0.625rem 0.3125rem;
+  background: $blue-gradient;
+  color: set-text-color($dark-blue);
+  position: relative;
+  text-align: center;
+  font-size: 1.125rem;
+  width: 100%;
+  margin-bottom: 1.875rem;
+  @include b-radius;
+
+  @include media-md {
+    padding: 1.875rem 1.25rem;
+  }
+}
+
+.badge {
+  position: absolute;
+  left: 50%;
+  top: -0.9375rem;
+  background-color: $orange;
+  padding: 0.4375rem;
+  border-radius: 50%;
+  color: set-text-color($orange);
+  transform: translateX(-50%);
+  font-weight: 500;
+
+  @include media-md {
+    top: -1.25rem;
+    padding: 0.625rem;
+  }
+}
+
+.answers {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  &__item {
+    background-color: white;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+    border: 0.125rem solid $dark-blue;
+    cursor: pointer;
+    transition: transform ease-out 0.3s;
+    @include b-radius;
+
+    @include media-md {
+      & {
+        width: 48%;
+      }
+    }
+
+    &.correct {
+      border: 0.125rem solid $green;
+    }
+
+    &.correct span:first-child {
+      background: $green;
+    }
+
+    &.incorrect {
+      border: 0.125rem solid $red;
+    }
+
+    &.incorrect span:first-child {
+      background: $red;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__letter {
+    background: $blue-gradient;
+    color: set-text-color($dark-blue);
+    display: inline-block;
+    margin-right: 0.625rem;
+    padding: 0.9375rem;
+  }
+}
+
+.result {
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.5em;
+  color: set-text-color($light-blue);
+
+  & a {
+    color: $orange;
+  }
+}
