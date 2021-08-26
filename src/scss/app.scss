@@ -34,9 +34,14 @@
 .answers {
   width: 100%;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+
+  @include media-md {
+    & {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  }
 
   &__item {
     background-color: white;

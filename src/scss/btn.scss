@@ -8,9 +8,9 @@
   font-weight: 500;
   display: inline-block;
   @include b-radius;
-}
 
-.btn:hover {
-  background-color: $light-blue;
-  color: $orange;
+  &:hover {
+    background-color: $light-blue;
+    color: $orange;
+  }
 }

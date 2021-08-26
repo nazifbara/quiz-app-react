@@ -6,6 +6,25 @@ body {
   background-color: $light-blue;
 }
 
+h3 {
+  color: $dark-blue;
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: block;
+}
+
+input,
+select {
+  padding: 0.3125rem 0.625rem;
+  width: 100%;
+  background-color: white;
+  border: 0.1875rem solid $dark-blue;
+  margin-bottom: 1.25rem;
+  @include b-radius;
+}
+
 .container {
   max-width: 59.375rem;
   margin: 0 auto;

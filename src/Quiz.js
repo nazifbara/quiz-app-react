@@ -1,38 +1,27 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useCallback } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 
 import client from './client';
 
 function Quiz() {
   const [quiz, dispatchQuiz] = useReducer(quizReducer, INITIAL_STATE);
+  const { search } = useLocation();
 
   const letters = ['A', 'B', 'C', 'D'];
   const currentQuestion = quiz.data[quiz.currentQuestionIndex];
   const answerSelected = quiz.answerSelected;
 
-  useEffect(() => {
-    fetchQuiz();
-  }, []);
-
-  const handleNextQuestion = () => {
-    if (!answerSelected) return;
-    if (quiz.currentQuestionIndex >= quiz.data.length - 1) {
-      dispatchQuiz({ type: 'QUIZ_FINISHED' });
-      return;
-    }
-    dispatchQuiz({ type: 'NEXT_QUESTION' });
-  };
-
-  const fetchQuiz = async () => {
+  const fetchQuiz = useCallback(async () => {
     dispatchQuiz({ type: 'QUIZ_FETCH_INIT' });
 
     try {
-      const results = await client.fetchQuiz();
+      const results = await client.fetchQuiz(search.slice(1));
       dispatchQuiz({ type: 'QUIZ_FETCH_SUCCESS', payload: results });
     } catch (e) {
       console.error(e);
       dispatchQuiz({ type: 'QUIZ_FETCH_FAILURE' });
     }
-  };
+  }, [search]);
 
   const handleAnswer = ({ index, value }) => {
     if (quiz.answerSelected) return;
@@ -43,6 +32,19 @@ function Quiz() {
     });
   };
 
+  useEffect(() => {
+    fetchQuiz();
+  }, [fetchQuiz]);
+
+  const handleNextQuestion = () => {
+    if (!answerSelected) return;
+    if (quiz.currentQuestionIndex >= quiz.data.length - 1) {
+      dispatchQuiz({ type: 'QUIZ_FINISHED' });
+      return;
+    }
+    dispatchQuiz({ type: 'NEXT_QUESTION' });
+  };
+
   return (
     <>
       {quiz.isLoading && <span>Loading...</span>}
@@ -51,7 +53,7 @@ function Quiz() {
         <p className="result">
           Congratulation you have completed the quiz. You got{' '}
           {quiz.goodAnswersCount} correct answer(s) out of {quiz.data.length}{' '}
-          questions right. <a href="/quiz">Try another quiz!</a>
+          questions right. <Link to="/">Try another quiz!</Link>
         </p>
       )}
 
