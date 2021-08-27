@@ -46,9 +46,7 @@ function Home() {
 
   return (
     <div>
-      <h3 className="text-align-c">
-        Do you want to test your knowledge? Well, we got you covered!
-      </h3>
+      <h3 className="text-align-c">Get ready for the quiz!</h3>
       <label htmlFor="amount">Number of Questions:</label>
       <input
         id="amount"
