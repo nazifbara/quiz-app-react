@@ -1,0 +1,16 @@
+type QuizItem {
+  category: String!
+  type: String!
+  difficulty: String!
+  question: String!
+  incorrect_answers: [String!]
+  correct_answer: String!
+  answers: [String!]
+}
+
+type Quiz @model @auth(rules: [{ allow: owner }, { allow: private }]) {
+  id: ID!
+  name: String!
+  items: [QuizItem!]
+  owner: String!
+}

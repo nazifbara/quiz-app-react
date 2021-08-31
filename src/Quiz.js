@@ -1,10 +1,12 @@
-import React, { useReducer, useEffect, useCallback } from 'react';
+import React, { useReducer, useEffect, useState, useCallback } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
+import SaveQuiz from './SaveQuiz';
 import client from './client';
 
 function Quiz() {
   const [quiz, dispatchQuiz] = useReducer(quizReducer, INITIAL_STATE);
+  const [saveMode, setSaveMode] = useState(false);
   const { search } = useLocation();
 
   const letters = ['A', 'B', 'C', 'D'];
@@ -50,11 +52,22 @@ function Quiz() {
       {quiz.isLoading && <span>Loading...</span>}
 
       {quiz.finished && (
-        <p className="result">
-          Congratulation you have completed the quiz. You got{' '}
-          {quiz.goodAnswersCount} correct answer(s) out of {quiz.data.length}{' '}
-          questions right. <Link to="/">Try another quiz!</Link>
-        </p>
+        <>
+          <SaveQuiz
+            onClose={() => setSaveMode(false)}
+            open={saveMode}
+            quizItems={quiz.data}
+          />
+          <p className="result">
+            Congratulation you have completed the quiz. You got{' '}
+            {quiz.goodAnswersCount} correct answer(s) out of {quiz.data.length}{' '}
+            questions right. You can{' '}
+            <button onClick={() => setSaveMode(true)} className="btn">
+              save this quiz for later
+            </button>{' '}
+            or <Link to="/">try another quiz!</Link>
+          </p>
+        </>
       )}
 
       {quiz.started && !quiz.finished && (

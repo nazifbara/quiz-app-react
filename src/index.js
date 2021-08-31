@@ -3,9 +3,14 @@ import ReactDOM from 'react-dom';
 import './scss/index.scss';
 import App from './App';
 
-import Amplify from 'aws-amplify';
-import config from './aws-exports';
-Amplify.configure(config);
+import Amplify, { AuthModeStrategyType } from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure({
+  ...awsconfig,
+  DataStore: {
+    authModeStrategyType: AuthModeStrategyType.MULTI_AUTH,
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>

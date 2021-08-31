@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { DataStore } from '@aws-amplify/datastore';
+import { Quiz } from './models';
 
 const traviaApi = 'https://opentdb.com/';
 
@@ -17,7 +19,10 @@ export const fetchCategories = async () => {
   return trivia_categories;
 };
 
+export const saveQuiz = async (quiz) => await DataStore.save(new Quiz(quiz));
+
 const client = {
+  saveQuiz,
   fetchQuiz,
   fetchCategories,
 };
