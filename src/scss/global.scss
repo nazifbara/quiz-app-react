@@ -15,6 +15,16 @@ label {
   display: block;
 }
 
+a {
+  color: $orange;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $orange;
+  text-decoration: underline;
+}
+
 input,
 select {
   padding: 0.3125rem 0.625rem;

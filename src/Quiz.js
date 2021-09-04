@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect, useState, useCallback } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useParams } from 'react-router-dom';
 
 import SaveQuiz from './SaveQuiz';
 import client from './client';
@@ -8,6 +8,7 @@ function Quiz() {
   const [quiz, dispatchQuiz] = useReducer(quizReducer, INITIAL_STATE);
   const [saveMode, setSaveMode] = useState(false);
   const { search } = useLocation();
+  const { quizId } = useParams();
 
   const letters = ['A', 'B', 'C', 'D'];
   const currentQuestion = quiz.data[quiz.currentQuestionIndex];
@@ -17,13 +18,19 @@ function Quiz() {
     dispatchQuiz({ type: 'QUIZ_FETCH_INIT' });
 
     try {
-      const results = await client.fetchQuiz(search.slice(1));
-      dispatchQuiz({ type: 'QUIZ_FETCH_SUCCESS', payload: results });
+      let result;
+      if (quizId) {
+        result = await client.getQuizByID(quizId);
+        result = result.items;
+      } else {
+        result = await client.fetchQuiz(search.slice(1));
+      }
+      dispatchQuiz({ type: 'QUIZ_FETCH_SUCCESS', payload: result });
     } catch (e) {
       console.error(e);
       dispatchQuiz({ type: 'QUIZ_FETCH_FAILURE' });
     }
-  }, [search]);
+  }, [search, quizId]);
 
   const handleAnswer = ({ index, value }) => {
     if (quiz.answerSelected) return;
@@ -58,15 +65,27 @@ function Quiz() {
             open={saveMode}
             quizItems={quiz.data}
           />
-          <p className="result">
-            Congratulation you have completed the quiz. You got{' '}
-            {quiz.goodAnswersCount} correct answer(s) out of {quiz.data.length}{' '}
-            questions right. You can{' '}
-            <button onClick={() => setSaveMode(true)} className="btn">
-              save this quiz for later
-            </button>{' '}
-            or <Link to="/">try another quiz!</Link>
-          </p>
+          <div className="result">
+            <p>
+              Congratulation you have completed the quiz. You got{' '}
+              {quiz.goodAnswersCount} correct answer(s) out of{' '}
+              {quiz.data.length} questions right.
+            </p>
+            {quizId ? (
+              <Link to="/dashboard">Go back to the dashboard</Link>
+            ) : (
+              <>
+                <div>
+                  <button onClick={() => setSaveMode(true)} className="btn">
+                    Save this quiz for later
+                  </button>
+                </div>
+                <div>
+                  <Link to="/">Or try another quiz!</Link>
+                </div>
+              </>
+            )}
+          </div>
         </>
       )}
 

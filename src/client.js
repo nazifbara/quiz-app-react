@@ -4,6 +4,8 @@ import { Quiz } from './models';
 
 const traviaApi = 'https://opentdb.com/';
 
+export const getQuizByID = async (id) => await DataStore.query(Quiz, id);
+
 export const fetchSavedQuizzes = async () => await DataStore.query(Quiz);
 
 export const fetchQuiz = async (queryString) => {
@@ -24,6 +26,7 @@ export const fetchCategories = async () => {
 export const saveQuiz = async (quiz) => await DataStore.save(new Quiz(quiz));
 
 const client = {
+  getQuizByID,
   fetchSavedQuizzes,
   saveQuiz,
   fetchQuiz,

@@ -17,7 +17,7 @@ function App() {
       </header>
       <div className="container container--hp container--vp">
         <Switch>
-          <Route path="/quiz">
+          <Route path="/quiz/:quizId?">
             <Quiz />
           </Route>
           <Route path="/dashboard">

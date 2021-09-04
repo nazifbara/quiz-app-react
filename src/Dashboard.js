@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Link } from 'react-router-dom';
 
 import client from './client';
 
@@ -11,9 +12,15 @@ function Dashboard() {
   return (
     <div>
       <h3>Your saved quizzes</h3>
-      {quizzes.map((q) => (
-        <div key={q.id}>{q.name}</div>
-      ))}
+      <ul>
+        {quizzes.map((q) => (
+          <li>
+            <Link to={`/quiz/${q.id}`} key={q.id}>
+              {q.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
