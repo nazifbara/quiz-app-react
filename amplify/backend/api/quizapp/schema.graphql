@@ -8,9 +8,10 @@ type QuizItem {
   answers: [String!]
 }
 
-type Quiz @model @auth(rules: [{ allow: owner }, { allow: private }]) {
+type Quiz @model @auth(rules: [{allow: owner}]) {
   id: ID!
   name: String!
   items: [QuizItem!]
   owner: String!
 }
+ 
