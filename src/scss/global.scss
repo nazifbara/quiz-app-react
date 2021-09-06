@@ -6,6 +6,37 @@ body {
   background-color: $light-blue;
 }
 
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem 0;
+
+  & .menu {
+    a {
+      text-decoration: none;
+    }
+    a:hover {
+      color: white;
+    }
+    & > :not(:last-child) {
+      margin-right: 0.3125rem;
+    }
+
+    &_item {
+      background-color: $dark-blue;
+      padding: 0.3125rem;
+      color: white;
+      @include b-radius;
+    }
+
+    &_item.logout {
+      background-color: red;
+      border: none;
+    }
+  }
+}
+
 h3 {
   color: $dark-blue;
   margin-bottom: 1.25rem;
@@ -45,8 +76,13 @@ select {
   }
 
   &--vp {
-    padding-top: 4.375rem;
-    padding-bottom: 4.375rem;
+    padding-top: 1.875rem;
+    padding-bottom: 1.875rem;
+
+    @include media-md {
+      padding-top: 4.375rem;
+      padding-bottom: 4.375rem;
+    }
   }
 }
 
