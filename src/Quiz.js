@@ -26,9 +26,9 @@ function Quiz() {
         result = await client.getQuiz(search.slice(1));
       }
       dispatchQuiz({ type: 'QUIZ_FETCH_SUCCESS', payload: result });
-    } catch (e) {
-      console.error(e);
-      dispatchQuiz({ type: 'QUIZ_FETCH_FAILURE' });
+    } catch (error) {
+      console.error(error);
+      dispatchQuiz({ type: 'QUIZ_FETCH_FAILURE', error });
     }
   }, [search, quizId]);
 
@@ -53,6 +53,10 @@ function Quiz() {
     }
     dispatchQuiz({ type: 'NEXT_QUESTION' });
   };
+
+  if (quiz.error) {
+    throw quiz.error;
+  }
 
   return (
     <>
@@ -183,7 +187,7 @@ const quizReducer = (state, action) => {
     case 'QUIZ_FETCH_FAILURE':
       return {
         ...state,
-        isError: true,
+        error: action.error,
       };
     default:
       return state;
@@ -193,7 +197,7 @@ const quizReducer = (state, action) => {
 const INITIAL_STATE = {
   data: [],
   isLoading: false,
-  isError: false,
+  error: null,
   finished: false,
   correct: false,
   answerSelected: false,

@@ -6,9 +6,16 @@ import client from './client';
 
 function Dashboard() {
   const [quizzes, setQuizzes] = useState([]);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    client.getSavedQuizzes().then(setQuizzes);
+    client.getSavedQuizzes().then(setQuizzes).catch(setError);
   }, []);
+
+  if (error) {
+    throw error;
+  }
+
   return (
     <div>
       <h3>Your saved quizzes</h3>

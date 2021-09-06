@@ -5,6 +5,7 @@ import { Auth, Hub, DataStore } from 'aws-amplify';
 import Home from './Home';
 import Quiz from './Quiz';
 import Dashboard from './Dashboard';
+import ErrorBoundary from './ErrorBoundary';
 
 function App() {
   const [userAuthenticated, setUserAuthenticated] = useState(false);
@@ -60,17 +61,19 @@ function App() {
         </div>
       </header>
       <div className="container container--hp container--vp">
-        <Switch>
-          <Route path="/quiz/:quizId?">
-            <Quiz />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <ErrorBoundary>
+          <Switch>
+            <Route path="/quiz/:quizId?">
+              <Quiz />
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </ErrorBoundary>
       </div>
     </>
   );

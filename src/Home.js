@@ -7,6 +7,7 @@ function Home() {
   const [categories, setCategories] = useState({
     items: [],
     isLoading: true,
+    error: null,
   });
   const [criteria, setCriteria] = useState({
     amount: 8,
@@ -20,7 +21,7 @@ function Home() {
       const result = await client.getCategories();
       setCategories({ items: result, isLoading: false });
     } catch (error) {
-      console.error(error);
+      setCategories((c) => ({ ...c, error }));
     }
   }, [setCategories]);
 
@@ -39,6 +40,10 @@ function Home() {
       .join('&');
     setQueryString(queryS);
   }, [criteria]);
+
+  if (categories.error) {
+    throw categories.error;
+  }
 
   if (categories.isLoading) {
     return <span>Loading...</span>;
