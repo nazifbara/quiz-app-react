@@ -14,10 +14,8 @@ function Dashboard() {
       <h3>Your saved quizzes</h3>
       <ul>
         {quizzes.map((q) => (
-          <li>
-            <Link to={`/quiz/${q.id}`} key={q.id}>
-              {q.name}
-            </Link>
+          <li key={q.id}>
+            <Link to={`/quiz/${q.id}`}>{q.name}</Link>
           </li>
         ))}
       </ul>
