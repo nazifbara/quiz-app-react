@@ -92,6 +92,10 @@
 .result {
   text-align: center;
   font-weight: 400;
-  font-size: 1.5em;
+  font-size: 1.2rem;
   color: black;
+
+  @include media-md {
+    font-size: 1.5rem;
+  }
 }
