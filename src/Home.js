@@ -17,7 +17,7 @@ function Home() {
 
   const fetchCategories = useCallback(async () => {
     try {
-      const result = await client.fetchCategories();
+      const result = await client.getCategories();
       setCategories({ items: result, isLoading: false });
     } catch (error) {
       console.error(error);

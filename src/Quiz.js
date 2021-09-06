@@ -23,7 +23,7 @@ function Quiz() {
         result = await client.getQuizByID(quizId);
         result = result.items;
       } else {
-        result = await client.fetchQuiz(search.slice(1));
+        result = await client.getQuiz(search.slice(1));
       }
       dispatchQuiz({ type: 'QUIZ_FETCH_SUCCESS', payload: result });
     } catch (e) {

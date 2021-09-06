@@ -7,7 +7,7 @@ import client from './client';
 function Dashboard() {
   const [quizzes, setQuizzes] = useState([]);
   useEffect(() => {
-    client.fetchSavedQuizzes().then(setQuizzes);
+    client.getSavedQuizzes().then(setQuizzes);
   }, []);
   return (
     <div>

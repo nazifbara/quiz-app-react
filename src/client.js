@@ -6,16 +6,16 @@ const traviaApi = 'https://opentdb.com/';
 
 export const getQuizByID = async (id) => await DataStore.query(Quiz, id);
 
-export const fetchSavedQuizzes = async () => await DataStore.query(Quiz);
+export const getSavedQuizzes = async () => await DataStore.query(Quiz);
 
-export const fetchQuiz = async (queryString) => {
+export const getQuiz = async (queryString) => {
   const {
     data: { results },
   } = await axios.get(`${traviaApi}api.php?type=multiple&${queryString}`);
   return results;
 };
 
-export const fetchCategories = async () => {
+export const getCategories = async () => {
   const {
     data: { trivia_categories },
   } = await axios.get(traviaApi + 'api_category.php');
@@ -27,10 +27,10 @@ export const saveQuiz = async (quiz) => await DataStore.save(new Quiz(quiz));
 
 const client = {
   getQuizByID,
-  fetchSavedQuizzes,
+  getSavedQuizzes,
   saveQuiz,
-  fetchQuiz,
-  fetchCategories,
+  getQuiz,
+  getCategories,
 };
 
 export default client;
