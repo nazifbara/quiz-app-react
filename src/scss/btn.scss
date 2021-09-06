@@ -1,7 +1,7 @@
 .btn {
   background-color: $orange;
   text-decoration: none;
-  color: set-text-color($orange);
+  color: black;
   padding: 0.625rem 3.4375rem;
   border: 0.1875rem solid $orange;
   font-size: 1.125rem;
@@ -10,6 +10,7 @@
   @include b-radius;
 
   &:hover {
+    text-decoration: none !important;
     background-color: $light-blue;
     color: $orange;
   }
